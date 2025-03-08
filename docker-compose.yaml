@@ -11,6 +11,10 @@ services:
       KC_DB_URL: jdbc:postgresql://keycloak_postgres:5432/keycloak_db
       KC_DB_USERNAME: keycloak_user
       KC_DB_PASSWORD: secure_password_123  # Replace with a strong password
+      KC_DB_POOL_INITIAL_SIZE: 10
+      KC_DB_POOL_MAX_SIZE: 100
+      KC_DB_POOL_MIN_SIZE: 10
+      KC_DB_SCHEMA: keycloak
       # Admin credentials
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin_secure_password  # Replace with a strong password
@@ -41,8 +45,10 @@ services:
       POSTGRES_DB: keycloak_db
       POSTGRES_USER: keycloak_user
       POSTGRES_PASSWORD: secure_password_123  # Match this with KC_DB_PASSWORD
+      POSTGRES_SCHEMA: keycloak
     volumes:
       - keycloak-postgres-data:/var/lib/postgresql/data
+      - ./postgres/init-schema.sh:/docker-entrypoint-initdb.d/init-schema.sh
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U keycloak_user -d keycloak_db"]
       interval: 10s
