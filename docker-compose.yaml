@@ -16,8 +16,8 @@ services:
       KC_DB_POOL_MIN_SIZE: 10
       KC_DB_SCHEMA: keycloak
       # Admin credentials
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin_secure_password  # Replace with a strong password
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin_secure_password  # Replace with a strong password
       # Hostname settings for production
       KC_HOSTNAME: https://localhost  # Replace with your domain (e.g., keycloak.example.com)
       KC_HOSTNAME_STRICT: "true"
@@ -27,8 +27,18 @@ services:
       PROXY_ADDRESS_FORWARDING: "true"
       # Performance and logging
       KC_LOG_LEVEL: info
+      KC_LOG_CONSOLE_COLOR: "true"
       KC_METRICS_ENABLED: "true"
+      KC_HTTP_METRICS_SLOS: "5,10,25,50,250,500,1000,2500,5000,10000"
+      KC_HTTP_METRICS_HISTOGRAMS_ENABLED: "true"
+      KC_EVENT_METRICS_USER_ENABLED: "true"
       KC_HEALTH_ENABLED: "true"
+      # Enable OpenTelemetry
+#      KC_TRACING_ENABLED: "true"
+#      KC_TRACING_COMPRESSION: "gzip"
+#      KC_TRACING_JDBC_ENABLED: "true"
+#      KC_TRACING_SAMPLER_RATIO: 1.0
+
       # JVM options for production (adjust based on your needs)
       JAVA_OPTS: "-Xms512m -Xmx2048m -XX:+UseG1GC"
     depends_on:
