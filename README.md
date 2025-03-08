@@ -1,7 +1,3 @@
-Here’s the updated README for your repository "KeycloakForge" hosted at `https://github.com/SyntaxArc/KeycloakForge`. It reflects your specific setup without a license section, as requested.
-
----
-
 # KeycloakForge
 
 This project, KeycloakForge, sets up a Keycloak identity and access management server with a PostgreSQL database and an Nginx reverse proxy for secure HTTPS access. The configuration is managed using Docker Compose.
@@ -14,7 +10,7 @@ This project, KeycloakForge, sets up a Keycloak identity and access management s
 - **Docker Compose**: Manages all services in a single configuration.
 
 ## Prerequisites
-- [Docker](https://docs.docker.com/get-docker/)  installed.
+- [Docker](https://docs.docker.com/get-docker/) installed.
 - Basic knowledge of Docker, Nginx, and Keycloak administration.
 
 ## Directory Structure
@@ -88,6 +84,27 @@ docker compose up -d
 - Proxies requests to Keycloak with proper headers.
 - Includes CORS headers to allow cross-origin requests from `https://localhost` (update for your domain).
 - Security headers: HSTS, XSS protection, etc.
+
+### Keycloak Configuration Options
+KeycloakForge leverages several configuration options to customize the server, set via environment variables in `docker compose.yml`. See the full list at [Keycloak Server Configuration](https://www.keycloak.org/server/all-config). Below are key options used:
+
+- **Database**:
+  - `KC_DB`: Set to `postgres` for PostgreSQL integration.
+  - `KC_DB_URL`, `KC_DB_USERNAME`, `KC_DB_PASSWORD`: Configures the database connection.
+- **Hostname**:
+  - `KC_HOSTNAME`: Sets the server hostname (e.g., `localhost` or your domain).
+  - `KC_HOSTNAME_STRICT`: Enforces strict hostname checking (default: `false`).
+- **Proxy**:
+  - `KC_PROXY`: Set to `edge` to handle headers from Nginx correctly.
+- **Features**:
+  - `KC_FEATURES`: Enables preview features (e.g., `token-exchange`).
+- **Health & Metrics**:
+  - `KC_HEALTH_ENABLED`: Enables health checks at `/health`.
+  - `KC_METRICS_ENABLED`: Exposes metrics at `/metrics` for monitoring (e.g., with Prometheus).
+- **Admin**:
+  - `KC_BOOTSTRAP_ADMIN_USERNAME`, `KC_BOOTSTRAP_ADMIN_PASSWORD`: Sets initial admin credentials.
+
+To customize further, add or modify environment variables in `docker compose.yml` based on the full configuration options.
 
 ### CORS Handling
 - Nginx adds `Access-Control-Allow-Origin` for static assets and API calls.
