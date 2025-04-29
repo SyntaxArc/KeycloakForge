@@ -8,7 +8,7 @@ services:
     environment:
       # Database configuration
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak_postgres:5432/keycloak_db
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloak_db
       KC_DB_USERNAME: keycloak_user
       KC_DB_PASSWORD: secure_password_123  # Replace with a strong password
       KC_DB_POOL_INITIAL_SIZE: 10
@@ -48,9 +48,9 @@ services:
     networks:
       - keycloak-network
 
-  keycloak_postgres:
+  keycloak-postgres:
     image: postgres:17-alpine
-    container_name: postgres-container
+    container_name: keycloak-postgres
     environment:
       POSTGRES_DB: keycloak_db
       POSTGRES_USER: keycloak_user
@@ -68,9 +68,9 @@ services:
     networks:
       - keycloak-network
 
-  nginx:
+  keycloak-nginx:
     image: nginx:latest
-    container_name: nginx-container
+    container_name: keycloak-nginx
     ports:
       - "80:80"    # HTTP port (optional, for redirecting to HTTPS)
       - "443:443"  # HTTPS port
